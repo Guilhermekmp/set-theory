@@ -84,13 +84,11 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is 
         antisymmetric or False if it is not.
         """
-        anti_simetrico = False
+        anti_simetrico = True
         rho = binary_relation.relation(input_set)
-        for i in rho:
-            x = i[0]
-            y = i[1]
-            if (y,x) in rho and x == y:
-                anti_simetrico = True
+        for x,y in rho:
+            if (y,x) in rho and x != y:
+                anti_simetrico = False
         return anti_simetrico
 
     @staticmethod
@@ -128,13 +126,16 @@ class BinaryRelationUtils(object):
         Return None if the binary relation is not an equivalence relation or a partitioning of the input set (e.g.: [{1, 3, 5, ...}, {2, 4, 6, ...}]) if it is an equivalence relation.
         """
         utils = BinaryRelationUtils()
+        lista = []
         if(utils.verify_equivalency(binary_relation, input_set)):
             rho = binary_relation.relation(input_set)
-            particionamento = set()
-            for i in rho:
-                elemento = i[0]
-                if elemento not in lista:
-                    particionamento.add(x for x in i if x[0] == elemento)
-            return particionamento
+            for x in input_set:
+                particionamento = set()
+                for y in input_set:
+                    if (x,y) in rho:
+                        particionamento.add(y)
+                if particionamento not in lista:
+                    lista.append(particionamento)
+            return lista
         else:
             return None

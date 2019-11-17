@@ -18,7 +18,9 @@ class SameParityBinaryRelation(BinaryRelation):
 
         Return True if the ordered pair belongs to the binary relation, otherwise, return False.
         """
-        if(((x % 2) == 0) and ((y%2) == 0)) and ((x % 2) != 0) and ((y % 2) != 0):
+        if x % 2 == 0 and y % 2 == 0:
+            return True
+        elif x % 2 != 0 and y % 2 != 0:
             return True
         else:
             return False
