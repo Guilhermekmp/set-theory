@@ -17,8 +17,13 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is reflexive
         or False if it is not.
         """
-        # TODO: Replace line below with actual code.
-        pass
+        rho = binary_relation.relation(input_set)
+        reflexivel = True
+        for i in rho:
+            x = i[0]
+            if (x,x) not in rho:
+                reflexivel = False
+        return reflexivel
 
     @staticmethod
     def verify_symmetry(binary_relation, input_set):
@@ -33,8 +38,14 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is symmetric
         or False if it is not.
         """
-        # TODO: Replace line below with actual code.
-        pass
+        simetrico = True
+        rho = binary_relation.relation(input_set)
+        for i in rho:
+            x = i[0]
+            y = i[1]
+            if (y,x) not in rho:
+                simetrico = False
+        return simetrico
 
     @staticmethod
     def verify_transitivity(binary_relation, input_set):
@@ -49,8 +60,16 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is transitive
         or False if it is not.
         """
-        # TODO: Replace line below with actual code.
-        pass
+        transitivo = True
+        rho = binary_relation.relation(input_set)
+        for i in rho:
+            x = i[0]
+            y = i[1]
+            for j in rho:
+                if(j[0] == y):
+                    if(x,j[1]) not in rho:
+                        transitivo = False
+        return transitivo
 
     @staticmethod
     def verify_antisymmetry(binary_relation, input_set):
@@ -65,8 +84,14 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is 
         antisymmetric or False if it is not.
         """
-        # TODO: Replace line below with actual code.
-        pass
+        anti_simetrico = False
+        rho = binary_relation.relation(input_set)
+        for i in rho:
+            x = i[0]
+            y = i[1]
+            if (y,x) in rho and x == y:
+                anti_simetrico = True
+        return anti_simetrico
 
     @staticmethod
     def verify_equivalency(binary_relation, input_set):
@@ -81,9 +106,13 @@ class BinaryRelationUtils(object):
         Return True if the binary relation in the given input set is 
         an equivalence relation or False if it is not.
         """
-        # TODO: Replace line below with actual code.
-        pass
-
+        utils = BinaryRelationUtils()
+        if(utils.verify_symmetry(binary_relation, input_set) and
+           utils.verify_transitivity(binary_relation, input_set) and
+           utils.verify_reflexivity(binary_relation, input_set)):
+            return True
+        else:
+            return False
     @staticmethod
     def get_partitioning(binary_relation, input_set):
         """
@@ -98,5 +127,14 @@ class BinaryRelationUtils(object):
 
         Return None if the binary relation is not an equivalence relation or a partitioning of the input set (e.g.: [{1, 3, 5, ...}, {2, 4, 6, ...}]) if it is an equivalence relation.
         """
-        # TODO: Replace line below with actual code.
-        return []
+        utils = BinaryRelationUtils()
+        if(utils.verify_equivalency(binary_relation, input_set)):
+            rho = binary_relation.relation(input_set)
+            particionamento = set()
+            for i in rho:
+                elemento = i[0]
+                if elemento not in lista:
+                    particionamento.add(x for x in i if x[0] == elemento)
+            return particionamento
+        else:
+            return None
